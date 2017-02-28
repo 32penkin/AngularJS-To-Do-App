@@ -9,6 +9,10 @@ angular.module('todoApp.controller', [])
         $scope.tempInput = '';
       }
     };
+    $scope.editTask = function (item) {
+      let index = $scope.tasksArray.indexOf(item);
+      $scope.tasksArray[index].edit = !$scope.tasksArray[index].edit;
+    };
     $scope.deleteTask = function (item) {
       let index = $scope.tasksArray.indexOf(item);
       $scope.tasksArray.splice(index, 1);

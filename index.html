@@ -10,20 +10,23 @@
 <main>
   <h1>Enter what u want to do</h1>
 
-  <form>
-    <input type="text" ng-model="tempInput" placeholder="What needs to be done?">
-    <button ng-click="addNew()">Add</button>
+  <form ng-submit="addNew()">
+    <input type="text" ng-model="tempInput" placeholder="What needs to be done?"/>
+    <button>Add</button>
   </form>
 
-  <div class="my-task-list">
-    <p ng-repeat="task in tasksArray | filter: showFn">
+  <ul class="my-task-list">
+    <li ng-repeat="task in tasksArray | filter: showFn">
       <label class="desc" ng-class="{strike: task.checked}">
         <input type="checkbox" ng-model="task.checked"/>
-        <span>{{task.value}}</span>
+        <span ng-hide="task.edit" ng-bind="task.value"></span>
+        <input ng-model="task.value" ng-show="task.edit" type="text"/>
       </label>
+      <button ng-hide="task.edit" ng-click="editTask(task)">Edit</button>
+      <button ng-show="task.edit" ng-click="editTask(task)">Save</button>
       <button ng-click="deleteTask(task)">Delete</button>
-    </p>
-  </div>
+    </li>
+  </ul>
 
   <div class="footer">
     <ul>
