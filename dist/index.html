@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>To Do List App</title>
+</head>
+<body ng-app="todoApp" ng-controller="todoController">
+<main>
+
+    <header class="header">
+        <form ng-submit="addNew()">
+            <label class="label-for-checkbox">
+                <input type="checkbox" class="check-all" ng-submit="allchecked" ng-click="toggleAll(allchecked)"/>
+                <span class="pseudo-checkbox"><i class="fa fa-check"></i></span>
+            </label>
+            <input type="text" class="input-text" ng-model="tempInput" autofocus autocomplete="off"
+                   placeholder="What needs to be done?"/>
+            <button class="add-button"><i class="fa fa-plus"></i></button>
+        </form>
+    </header>
+
+    <ul class="main">
+        <li class="view" ng-repeat="task in tasksArray | filter: showFn">
+
+            <label class="label-for-check">
+                <input type="checkbox" class="check" ng-model="task.checked">
+                <span class="pseudo-checkbox"><i class="fa fa-check"></i></span>
+            </label>
+            <div class="to-do-cont"><span class="to-do-span" ng-hide="task.edit" ng-bind="task.value"
+                                          ng-class="{strike: task.checked}"></span></div>
+            <input ng-model="task.value" ng-show="task.edit" type="text" class="internal-element"/>
+            <div class="tool-bar">
+                <button class="edit" title="Click to save edition" ng-hide="task.edit" ng-click="editTask(task)"><i
+                            class="fa fa-pencil-square-o"></i></button>
+                <button class="edit" title="Click to edit todo" ng-show="task.edit" ng-click="editTask(task)"><i
+                            class="fa fa-check-circle-o"></i></button>
+                <button class="delete" title="Click to delete todo" ng-click="deleteTask(task)"><i
+                            class="fa fa-trash"></i></button>
+            </div>
+        </li>
+    </ul>
+
+    <footer class="footer">
+        <ul>
+            <li>
+                <button ng-class="{'active' : show == 'All' }" ng-click="show='All'">All</button>
+            </li>
+            <li>
+                <button ng-class="{'active' : show == 'Active' }" ng-click="show='Active'">Active</button>
+            </li>
+            <li>
+                <button ng-class="{'active' : show == 'Completed' }" ng-click="show='Completed'">Completed</button>
+            </li>
+            <li>
+                <button ng-class="{'' : show == 'All' }" ng-click="clearCompleted()">Clear completed</button>
+            </li>
+        </ul>
+    </footer>
+</main>
+<script type="text/javascript" src="build.js"></script></body>
+</html>
